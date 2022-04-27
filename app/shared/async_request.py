@@ -20,7 +20,7 @@ async def get_async(url, session, results):
     except AttributeError:
         pair = 'BRLBTC'
     async with session.get(url) as response:
-        obj = await response.text()
+        obj = await response.json()
         results[pair] = obj
 
 
