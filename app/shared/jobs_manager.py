@@ -19,27 +19,47 @@ class JobsManager():
     def _get_results(self, jobs_to_get_results):
         thread_pool = ThreadPool(1)
         raw_thread_results = self._get_raw_results(thread_pool, jobs_to_get_results)
-        final_results = self._process_raw_results(raw_thread_results)
+        formatted_results = self._format_raw_results(raw_thread_results)
+
+        processed_raw_thread_results = self._process_raw_results(formatted_results, thread_pool, jobs_to_get_results)
+        processed_results = self._response_raw_results(processed_raw_thread_results)
+
         thread_pool.close()
         thread_pool.join()
-        return final_results
+        return processed_results
 
     def _get_raw_results(self, thread_pool, jobs_to_get_results):
         results = []
-        while len(jobs_to_get_results) > 0:
-            for job in jobs_to_get_results:
-                results.append(thread_pool.apply_async(job.execute, ("results", 100)))
-                jobs_to_get_results.remove(job)
+        for job in jobs_to_get_results:
+            results.append(thread_pool.apply_async(job.execute, ("results", 100)))
         for result in results:
             result.wait()
         return results
 
-    def _process_raw_results(self, results):
+    def _format_raw_results(self, results):
         final_results = []
         while len(results) > 0:
             for result in results:
                 query_result = result.get()
                 results.remove(result)
-                # final_results += query_result.to_json_collections()
-                final_results += query_result
+                final_results.append(query_result.to_json_collections())
+        return final_results
+
+    def _process_raw_results(self, raw_results, thread_pool, jobs_to_get_results):
+        results = []
+        while len(jobs_to_get_results) > 0:
+            for job in jobs_to_get_results:
+                results.append(thread_pool.apply_async(job.execute_with_params, ('process_results', raw_results)))
+                jobs_to_get_results.remove(job)
+        for result in results:
+            result.wait()
+        return results
+
+    def _response_raw_results(self, results):
+        final_results = []
+        while len(results) > 0:
+            for result in results:
+                query_result = result.get()
+                results.remove(result)
+                final_results.append(query_result)
         return final_results
