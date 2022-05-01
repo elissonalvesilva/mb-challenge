@@ -1,13 +1,8 @@
 from decouple import config
 
 __all__ = [
-    'MB_CANDLE_URL',
     'DEFINITION_FILE',
 ]
-
-MB_CANDLE_URL = config('MB_CANDLE_URL')
-MB_FAKE_URL = config('MB_FAKE_URL')
-
 # DEFINITION FILE DIRECTORIES
 PROJECT_FOLDER = config('PROJECT_FOLDER') + "/"
 DEFINITION_FILE = PROJECT_FOLDER + config('MB_PATH_JOB_DEFINITIONS')
