@@ -1,3 +1,5 @@
+from shared.request import Request
+
 class Job():
     def __init__(self,
         action,
@@ -18,4 +20,5 @@ class Job():
         return getattr(self, method)()
 
     def results(self):
-        return [1,2,3]
+        response = Request.Instance().get_result(self.url)
+        return response.json()
