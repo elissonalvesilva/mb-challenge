@@ -1,0 +1,24 @@
+[
+  {
+    "action": "create",
+    "pair": "BRLBTC",
+    "url": "https://mobile.mercadobitcoin.com.br/v4/BRLBTC/candles",
+    "table_name": "mms_simple",
+    "range": [
+      20,
+      50,
+      200
+    ]
+  },
+  {
+    "action": "create",
+    "pair": "BRLETH",
+    "url": "https://mobile.mercadobitcoin.com.br/v4/BRLETH/candles",
+    "table_name": "mms_simple",
+    "range": [
+      20,
+      50,
+      200
+    ]
+  }
+]
