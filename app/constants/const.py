@@ -1,7 +1,0 @@
-__all__ = [
-    'PAIR_BRLBTC',
-    'PAIR_BRLETH',
-]
-
-PAIR_BRLBTC='BRLBTC'
-PAIR_BRLETH='BRLETH'
