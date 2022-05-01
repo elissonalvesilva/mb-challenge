@@ -1,4 +1,6 @@
+from shared.process_data import ProcessData
 from shared.request import Request
+from shared.formatter import Formatter
 
 class Job():
     def __init__(self,
@@ -19,6 +21,22 @@ class Job():
     def execute(self, method, retries):
         return getattr(self, method)()
 
+    def execute_with_params(self, method, data):
+        return getattr(self, method)(data)
+
     def results(self):
         response = Request.Instance().get_result(self.url)
-        return response.json()
+        formatted_results = Formatter(
+            self.action,
+            self.table_name,
+            self.pair,
+            data=response.json()
+        )
+
+        return formatted_results
+
+    def process_results(self, results):
+        process_data = ProcessData(results, self.range)
+        process_data.process()
+
+
