@@ -1,4 +1,6 @@
 import json
+import calendar
+import time
 
 from shared.singleton import Singleton
 from config import settings
@@ -9,6 +11,12 @@ from shared.job import Job
 class JobsLoader():
     def __init__(self) -> None:
         self.loaded_jobs = {}
+        self.from_date = calendar.timegm(time.gmtime())
+        self.to_date = calendar.timegm(time.gmtime())
+
+    def set_range(self, from_date, to_date = calendar.timegm(time.gmtime())):
+        self.from_date = from_date
+        self.to_date = to_date
 
     def load_jobs(self):
         loaded_jobs_definitions = self._load_jobs_definitions()
@@ -40,7 +48,7 @@ class JobsLoader():
     def _create_job_definition(self, job_definition):
         action = job_definition.get('action', None)
         pair = job_definition.get('pair', None)
-        url = job_definition.get('url', None)
+        url = self._make_url(job_definition.get('url', None))
         table_name = job_definition.get('table_name', None)
         range = job_definition.get('range', None)
         job = Job(action, pair, url, table_name, range)
@@ -48,5 +56,14 @@ class JobsLoader():
 
     def _validate_jobs(self) -> None:
         for job in list(self.loaded_jobs.keys()):
-            if self.loaded_jobs[job].action == 'create' and self.loaded_jobs[job].table_name == None and self.load_jobs.url == None:
+            if self.loaded_jobs[job].action == 'create' and self.loaded_jobs[job].table_name == None:
                 raise "Error"
+
+    def _make_url(self, url):
+        if url == None:
+            raise "Error"
+        if self.to_date == None:
+            self.to_date = calendar.timegm(time.gmtime())
+
+        url = url + '?from=' + str(self.from_date) + '&to='+ str(self.to_date)
+        return url
