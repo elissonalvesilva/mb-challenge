@@ -1,3 +1,4 @@
+from shared.output_formatter import OutputFormatter
 from shared.process_data import ProcessData
 from shared.request import Request
 from shared.formatter import Formatter
@@ -37,6 +38,14 @@ class Job():
 
     def process_results(self, results):
         process_data = ProcessData(results, self.range)
-        process_data.process()
+        processed_data = process_data.process()
+        response = []
+        for data in processed_data:
+            sma_range = OutputFormatter(
+                data['dt']
+            ).to_json_collections()
+            response.append({ 'mb_meta': data['mb_meta'], 'sma_range':  sma_range })
+
+        return response
 
 

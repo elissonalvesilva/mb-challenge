@@ -7,9 +7,13 @@ class ProcessData():
         self.range = range
 
     def process(self):
+        response = []
         for collection in self.data:
             dt = pd.DataFrame(collection['mb_candles'])
             for item_range in self.range:
                 dt.ta.sma(close='close', length=item_range, append=True)
+                dt[f'SMA_{item_range}'] = dt[f'SMA_{item_range}'].fillna(0)
 
-            return dt
+            response.append({ 'mb_meta': collection['mb_meta'], 'dt': dt })
+
+        return response
