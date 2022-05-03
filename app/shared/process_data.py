@@ -13,7 +13,7 @@ class ProcessData():
             for item_range in self.range:
                 dt.ta.sma(close='close', length=item_range, append=True)
                 dt[f'SMA_{item_range}'] = dt[f'SMA_{item_range}'].fillna(0)
-
+            dt['pair'] = collection['mb_meta']['pair']
             response.append({ 'mb_meta': collection['mb_meta'], 'dt': dt })
 
         return response

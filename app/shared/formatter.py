@@ -25,13 +25,10 @@ class Formatter():
     def _extract_essecial_parameters(self, data):
         essencial_params = []
         for item in data['candles']:
-            date = datetime.fromtimestamp(item['timestamp'])
-            date = date.strftime("%Y-%m-%d")
             essencial_params.append({
                 'close': item['close'],
-                'date': date
+                'date': datetime.fromtimestamp(item['timestamp'])
             })
-        del self.data
         return essencial_params
 
     def _append_params_output_formatter(self, candles):

@@ -41,10 +41,10 @@ class Job():
         processed_data = process_data.process()
         response = []
         for data in processed_data:
-            sma_range = OutputFormatter(
+            single_moving_average_formatted = OutputFormatter(
                 data['dt']
             ).to_json_collections()
-            response.append({ 'mb_meta': data['mb_meta'], 'sma_range':  sma_range })
+            response.extend(single_moving_average_formatted)
 
         return response
 
