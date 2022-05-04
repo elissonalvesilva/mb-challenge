@@ -40,7 +40,7 @@ class Run():
         execution_info.start_info()
         execution_info.end()
         execution_info.end_info()
-        # Loader(self.response).load_data()
+        Loader(self.response).load_data()
 
 
 if __name__ == "__main__":
