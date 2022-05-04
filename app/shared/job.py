@@ -2,6 +2,7 @@ from shared.output_formatter import OutputFormatter
 from shared.process_data import ProcessData
 from shared.request import Request
 from shared.formatter import Formatter
+import time
 
 class Job():
     def __init__(self,
@@ -20,21 +21,33 @@ class Job():
         self.range = range
 
     def execute(self, method, retries):
-        return getattr(self, method)()
+        test = False
+        count_retries = 0
+        while test is False:
+            test = True
+            try:
+                return getattr(self, method)()
+            except Exception as e:
+                test = False
+                count_retries +=1
+                if count_retries > retries:
+                    return e
+                else:
+                    time.sleep(2)
+
+
 
     def execute_with_params(self, method, data):
         return getattr(self, method)(data)
 
     def results(self):
         response = Request.Instance().get_result(self.url)
-        formatted_results = Formatter(
+        return Formatter(
             self.action,
             self.table_name,
             self.pair,
             data=response.json()
         )
-
-        return formatted_results
 
     def process_results(self, results):
         process_data = ProcessData(results, self.range)

@@ -1,5 +1,7 @@
 from multiprocessing.pool import ThreadPool
 
+from config.settings import JOB_RETRIES
+
 class JobsManager():
     def __init__(self, loaded_jobs) -> None:
         self.loaded_jobs = loaded_jobs
@@ -38,7 +40,7 @@ class JobsManager():
         results = []
         while len(jobs_to_get_results) > 0:
             for job in jobs_to_get_results:
-                results.append(thread_pool.apply_async(job.execute, ("results", 100)))
+                results.append(thread_pool.apply_async(job.execute, ("results", JOB_RETRIES)))
                 jobs_to_get_results.remove(job)
         for result in results:
             result.wait()
@@ -50,7 +52,8 @@ class JobsManager():
             for result in results:
                 query_result = result.get()
                 results.remove(result)
-                final_results.append(query_result.to_json_collections())
+                if not isinstance(query_result, Exception):
+                    final_results.append(query_result.to_json_collections())
         return final_results
 
     def _process_raw_results(self, raw_results, thread_pool, process_job):
