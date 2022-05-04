@@ -5,7 +5,8 @@ __all__ = [
     'DEFINITION_FILE',
     'WORK_DIRECTORY_TO_RESULTS',
     'get_mongodb_uri',
-    'MONGO_URI'
+    'MONGO_URI',
+    'JOB_RETRIES'
 ]
 
 # DEFINITION FILE DIRECTORIES
@@ -15,3 +16,6 @@ WORKDIRECTORY_TO_RESULTS = config('WORKDIRECTORY_TO_RESULTS') + '/{date}'
 
 #DATABASE ENV
 MONGO_URI = config('MONGO_URI')
+
+# PROJECT ENV
+JOB_RETRIES = int(config('JOB_RETRIES'))
