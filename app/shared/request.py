@@ -6,5 +6,9 @@ from shared.singleton import Singleton
 @Singleton
 class Request():
     def get_result(self, url):
-        result = requests.get(url)
-        return result
+        try:
+            result = requests.get(url)
+            result.raise_for_status()
+            return result
+        except requests.exceptions.RequestException as err:
+            raise err
