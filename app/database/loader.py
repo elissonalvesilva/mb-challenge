@@ -1,9 +1,9 @@
 from pymongo import MongoClient
-from config.settings import MONGO_URI
+from config.settings import Settings
 
 class Loader():
     def __init__(self, data) -> None:
-        client = MongoClient(MONGO_URI)
+        client = MongoClient(Settings.MONGO_URI)
         self.client = client
         self.data = data
 

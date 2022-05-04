@@ -10,6 +10,7 @@ class ProcessData():
         response = []
         for collection in self.data:
             dt = pd.DataFrame(collection['mb_candles'])
+            dt.set_index('date')
             for item_range in self.range:
                 dt.ta.sma(close='close', length=item_range, append=True)
                 dt[f'SMA_{item_range}'] = dt[f'SMA_{item_range}'].fillna(0)

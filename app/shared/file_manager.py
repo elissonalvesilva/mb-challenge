@@ -21,6 +21,14 @@ class FileManager:
             return data
 
     @staticmethod
+    def read_from_string_file(filepath, filename):
+        filepath_final = FileManager.set_path(filepath, filename)
+        if os.path.exists(filepath_final):
+            with open(filepath_final, 'r') as f:
+                lines = f.readlines()
+            return lines
+
+    @staticmethod
     def write_json_to_file(filepath, filename, arrayjson):
         filepath_final = FileManager.set_path(filepath, filename)
         FileManager.clear_file(filepath_final)
@@ -33,7 +41,7 @@ class FileManager:
         filepath_final = FileManager.set_path(filepath, filename)
         FileManager.clear_file(filepath_final)
         with open(filepath_final, 'a') as outfile:
-            outfile.write(content)
+            outfile.write(content + '\n')
 
     @staticmethod
     def clear_file(filename):

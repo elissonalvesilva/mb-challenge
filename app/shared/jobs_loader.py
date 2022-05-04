@@ -3,7 +3,7 @@ import calendar
 import time
 
 from shared.singleton import Singleton
-from config import settings
+from config.settings import Settings
 from shared.job import Job
 
 
@@ -11,14 +11,13 @@ from shared.job import Job
 class JobsLoader():
     def __init__(self) -> None:
         self.loaded_jobs = {}
-        self.from_date = calendar.timegm(time.gmtime())
-        self.to_date = calendar.timegm(time.gmtime())
+        self.from_date = None
+        self.to_date = None
 
-    def set_range(self, from_date, to_date = calendar.timegm(time.gmtime())):
+    def load_jobs(self, from_date, to_date):
         self.from_date = from_date
         self.to_date = to_date
 
-    def load_jobs(self):
         loaded_jobs_definitions = self._load_jobs_definitions()
         for job_definition in loaded_jobs_definitions:
             new_job = self._create_job_definition(job_definition)
@@ -26,8 +25,11 @@ class JobsLoader():
 
     def _load_jobs_definitions(self):
         loaded_jobs_definitions = []
-        file_content = self._read_jobs_definitions_file(settings.DEFINITION_FILE)
+        file_content = self._read_jobs_definitions_file(Settings.DEFINITION_FILE)
         loaded_jobs_definitions += (self._parse_jobs_definitions(file_content))
+
+        if Settings.IS_RETRY == True:
+            loaded_jobs_definitions = list(filter(lambda job: job['pair'] in Settings.PAIRS_TO_RETRY, loaded_jobs_definitions))
 
         self._validate_jobs()
         return loaded_jobs_definitions
@@ -62,8 +64,6 @@ class JobsLoader():
     def _make_url(self, url):
         if url == None:
             raise "Error"
-        if self.to_date == None:
-            self.to_date = calendar.timegm(time.gmtime())
 
         url = url + '?from=' + str(self.from_date) + '&to='+ str(self.to_date)
         return url

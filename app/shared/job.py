@@ -3,6 +3,7 @@ from shared.process_data import ProcessData
 from shared.request import Request
 from shared.formatter import Formatter
 import time
+from shared.writer import Writer
 
 class Job():
     def __init__(self,
@@ -31,6 +32,7 @@ class Job():
                 test = False
                 count_retries +=1
                 if count_retries > retries:
+                    Writer.Instance().url_to_retry(self.url)
                     return e
                 else:
                     time.sleep(2)
@@ -41,7 +43,7 @@ class Job():
         return getattr(self, method)(data)
 
     def results(self):
-        response = Request.Instance().get_result(self.url)
+        response = Request().get_result(self.url)
         return Formatter(
             self.action,
             self.table_name,

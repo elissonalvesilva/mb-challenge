@@ -1,5 +1,3 @@
-from datetime import datetime
-
 class OutputFormatter():
     def __init__(self, data) -> None:
         self.data = data
