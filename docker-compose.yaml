@@ -2,9 +2,19 @@ version: '3'
 
 services:
   script:
+    container_name: script
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/script
+
+  fakeapi:
+    container_name: fakeapi
+    build:
+      context: .
+      dockerfile: Dockerfile.fakeapi
+
 
 
 networks:
