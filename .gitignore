@@ -39,3 +39,7 @@
 *.code-workspace
 
 app/**/__pycache__
+
+node_modules
+
+mb_data/
