@@ -12,12 +12,6 @@ class Writer:
     def __init__(self):
         pass
 
-    def run(self, collections):
-        for collection in collections:
-            filepath = Settings.WORKDIRECTORY_TO_RESULTS
-            filepath = filepath.format(date=collection['mb_meta']['timestamp'][0:10])
-            FileManager.create_if_dont_exist(filepath)
-            FileManager.write_json_to_file(filepath, collection['mb_meta']['pair'], collection)
 
     def url_to_retry(self, url_to_retry):
         filepath = Settings.WORKDIRECTORY_TO_RETRY
