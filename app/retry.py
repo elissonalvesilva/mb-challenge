@@ -1,5 +1,6 @@
 from datetime import datetime
-import os;
+import os
+from app.shared.system_exiter import SystemExiter;
 from shared.file_manager import FileManager
 from config.settings import Settings
 import re
@@ -9,10 +10,14 @@ def timestamp_to_str_date(timestamp_str):
     return datetime.fromtimestamp(int(timestamp_str)).strftime('%Y-%m-%d')
 
 if __name__ == "__main__":
-    retries_urls = FileManager.read_from_string_file(Settings.WORKDIRECTORY_TO_RETRY, Settings.RETRY_FILENAME)
+    filepath = Settings.PROJECT_FOLDER + Settings.WORKDIRECTORY_TO_RETRY
+    retries_urls = FileManager.read_from_string_file(filepath, Settings.RETRY_FILENAME)
     pairs = []
     from_date = None
     to_date = None
+    if retries_urls == None:
+        SystemExiter.Instance().exit('Not found urls to retry')
+
     for retry_url in retries_urls:
         url_parsed = urlparse(retry_url)
         query_string = parse_qs(url_parsed.query)
@@ -23,7 +28,7 @@ if __name__ == "__main__":
 
     pairs = ','.join(pairs)
 
-    FileManager.clear_file(Settings.WORKDIRECTORY_TO_RETRY + '/' + Settings.RETRY_FILENAME)
+    FileManager.clear_file(filepath + '/' + Settings.RETRY_FILENAME)
 
     os.system(f'python app/ingestion.py -sd {from_date} -ed {to_date} -r -pr {pairs}')
 

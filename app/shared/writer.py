@@ -16,4 +16,4 @@ class Writer:
     def url_to_retry(self, url_to_retry):
         filepath = Settings.WORKDIRECTORY_TO_RETRY
         FileManager.create_if_dont_exist(filepath)
-        FileManager.write_string_to_file(filepath, 'retries', url_to_retry)
+        FileManager.write_string_to_file(filepath, Settings.RETRY_FILENAME, url_to_retry)

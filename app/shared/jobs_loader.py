@@ -1,6 +1,5 @@
 import json
-import calendar
-import time
+from app.shared.system_exiter import SystemExiter
 
 from shared.singleton import Singleton
 from config.settings import Settings
@@ -59,11 +58,11 @@ class JobsLoader():
     def _validate_jobs(self) -> None:
         for job in list(self.loaded_jobs.keys()):
             if self.loaded_jobs[job].action == 'create' and self.loaded_jobs[job].table_name == None:
-                raise "Error"
+                SystemExiter.Instance().exit('must be pass table name on create')
 
     def _make_url(self, url):
         if url == None:
-            raise "Error"
+            SystemExiter.Instance().exit('Must be pass url')
 
         url = url + '?from=' + str(self.from_date) + '&to='+ str(self.to_date)
         return url
