@@ -20,6 +20,7 @@ class SystemConfigure():
             Settings.IS_RETRY = self.args.retry
 
     def _config_directories(self):
+        Settings.WORKDIRECTORY_TO_RESULTS = Settings.PROJECT_FOLDER + Settings.WORKDIRECTORY_TO_RESULTS
         FileManager.create_if_dont_exist(Settings.WORKDIRECTORY_TO_RESULTS)
         FileManager.create_if_dont_exist(Settings.WORKDIRECTORY_TO_RETRY)
         Settings.WORKDIRECTORY_TO_RESULTS =  Settings.WORKDIRECTORY_TO_RESULTS + '/{date}'
