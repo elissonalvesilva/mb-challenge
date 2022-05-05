@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from pymongo import MongoClient
+from shared.file_manager import FileManager
 from config.settings import Settings
 
 
@@ -15,7 +16,7 @@ def get_date_range(start_date, end_date):
 
 
 start_date = datetime.now()
-end_date = datetime.now() - timedelta(days=465)
+end_date = datetime.now() - timedelta(days=365)
 
 
 list_date = get_date_range(start_date, end_date)
@@ -52,5 +53,6 @@ if __name__ == "__main__":
     ])
 
     response = list(response)
-    print(response)
+    FileManager.create_if_dont_exist(Settings.WORKDIRECTORY_TO_RESULTS)
+    FileManager.write_json_to_file(Settings.WORKDIRECTORY_TO_RESULTS, start_date.strftime('%Y-%m-%d') + '_' + Settings.UNPROCESSED_FILENAME, response)
 

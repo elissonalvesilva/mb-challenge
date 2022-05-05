@@ -13,6 +13,7 @@ class Settings:
     # PROJECT ENV
     JOB_RETRIES = int(config('JOB_RETRIES'))
     RETRY_FILENAME = 'retries'
+    UNPROCESSED_FILENAME = 'unprocessed_dates'
 
     IS_RETRY = False
 

@@ -1,3 +1,4 @@
+from shared.file_manager import FileManager
 from shared.singleton import Singleton
 from config.settings import Settings
 
@@ -19,6 +20,8 @@ class SystemConfigure():
             Settings.IS_RETRY = self.args.retry
 
     def _config_directories(self):
+        FileManager.create_if_dont_exist(Settings.WORKDIRECTORY_TO_RESULTS)
+        FileManager.create_if_dont_exist(Settings.WORKDIRECTORY_TO_RETRY)
         Settings.WORKDIRECTORY_TO_RESULTS =  Settings.WORKDIRECTORY_TO_RESULTS + '/{date}'
 
     def _config_jobs_to_retry(self):
