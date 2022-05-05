@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from config.settings import Settings
+from shared.system_exiter import SystemExiter
 
 
 class Loader():
@@ -9,5 +10,7 @@ class Loader():
         self.data = data
 
     def load_data(self):
-        self.client.mb.sma.insert_many(self.data)
-
+        try:
+            self.client.mb.sma.insert_many(self.data)
+        except Exception as e:
+            SystemExiter.Instance().exit(e)
