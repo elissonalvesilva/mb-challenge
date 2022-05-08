@@ -15,6 +15,17 @@ services:
       context: .
       dockerfile: Dockerfile.fakeapi
 
+  mms_api:
+    container_name: mms_api
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: "python api/run.py"
+    volumes:
+      - .:/mb
+    ports:
+      - "5000:5000"
+
 
 
 networks:
