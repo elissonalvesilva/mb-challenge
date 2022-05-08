@@ -1,3 +1,4 @@
+from config.settings import Settings
 from flask import Flask, request, jsonify
 
 from main.factories.controllers.get_mms_controller_factory import make_mms_controller
@@ -16,3 +17,7 @@ def get_mms(pair):
         return jsonify({ 'error': response.body.message }), response.status_code
 
     return jsonify(response.body), response.status_code
+
+
+if __name__ == "__main__":
+    app.run(host=Settings.API_HOST, port=int(Settings.API_PORT))
