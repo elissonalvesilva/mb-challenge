@@ -2,6 +2,7 @@
 FROM python:3.8-slim-buster
 RUN mkdir /script
 COPY . /script
+RUN rm -rf api/
 COPY pyproject.toml /script
 
 WORKDIR /script
