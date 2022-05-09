@@ -40,6 +40,9 @@
 
 app/**/__pycache__
 api/**/__pycache__
+tests/**/__pycache__
+.pytest_cache/
+__pycache__
 
 node_modules
 
