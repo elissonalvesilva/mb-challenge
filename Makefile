@@ -1,3 +1,15 @@
+build:
+	docker-compose build
+
+up:
+	docker-compose up -d
+
+logs-api:
+	docker logs --follow --timestamps mms_api
+
+logs-fake-api:
+	docker logs --follow --timestamps fakeapi
+
 generate-data:
 	docker-compose run script python app/ingestion.py
 
