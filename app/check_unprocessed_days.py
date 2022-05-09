@@ -53,7 +53,6 @@ if __name__ == "__main__":
     ])
 
     response = list(response)
-    print()
     filepath = Settings.PROJECT_FOLDER + '/' + Settings.WORKDIRECTORY_TO_RESULTS
     FileManager.create_if_dont_exist(filepath)
     FileManager.write_json_to_file(filepath, start_date.strftime('%Y-%m-%d') + '_' + Settings.UNPROCESSED_FILENAME, response)
