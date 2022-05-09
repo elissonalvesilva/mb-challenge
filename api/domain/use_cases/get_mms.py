@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import List, Union
 
-from domain.protocols.mms_response import MMSResponse
+from api.domain.protocols.mms_response import MMSResponse
 
 class GetMMS(ABC):
 

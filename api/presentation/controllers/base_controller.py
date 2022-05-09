@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from presentation.protocols.response import Response
-from presentation.protocols.request import Request
+from api.presentation.protocols.response import Response
+from api.presentation.protocols.request import Request
 
 class BaseController(ABC):
 

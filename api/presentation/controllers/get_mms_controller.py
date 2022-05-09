@@ -1,10 +1,10 @@
 from datetime import datetime
-from presentation.helpers.http import OK, BadRequest, InternalError, NotFound
-from presentation.errors.exceptions import DatabaseException, EmptyFromDateException, EmptyPairException, FromDateIsGreatherThanToDateException, InvalidRangeException, NotAllowedRangeDate
-from presentation.controllers.base_controller import BaseController
-from presentation.protocols.request import Request
-from presentation.protocols.response import Response
-from domain.use_cases.get_mms import GetMMS
+from api.presentation.helpers.http import OK, BadRequest, InternalError, NotFound
+from api.presentation.errors.exceptions import DatabaseException, EmptyFromDateException, EmptyPairException, FromDateIsGreatherThanToDateException, InvalidRangeException, NotAllowedRangeDate
+from api.presentation.controllers.base_controller import BaseController
+from api.presentation.protocols.request import Request
+from api.presentation.protocols.response import Response
+from api.domain.use_cases.get_mms import GetMMS
 
 
 class GetMMSController(BaseController):

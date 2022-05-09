@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import List, Union
-from presentation.errors.exceptions import DatabaseException, NotAllowedRangeDate
+from api.presentation.errors.exceptions import DatabaseException, NotAllowedRangeDate
 
-from domain.use_cases.get_mms import GetMMS
-from domain.protocols.mms_response import MMSResponse
-from application.protocols.get_mms_repository import GetMMSRepository
+from api.domain.use_cases.get_mms import GetMMS
+from api.domain.protocols.mms_response import MMSResponse
+from api.application.protocols.get_mms_repository import GetMMSRepository
 
 
 class DbGetMMS(GetMMS):

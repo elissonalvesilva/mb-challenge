@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import Dict, List
 from pymongo import MongoClient
 
-from application.protocols.get_mms_repository import GetMMSRepository
-from config.settings import Settings
+from api.application.protocols.get_mms_repository import GetMMSRepository
+from api.config.settings import Settings
 
 
 class MMSImplementation(GetMMSRepository):

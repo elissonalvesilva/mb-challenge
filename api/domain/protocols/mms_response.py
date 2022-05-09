@@ -1,4 +1,4 @@
-from domain.protocols.base_response import BaseResponse
+from api.domain.protocols.base_response import BaseResponse
 
 
 class MMSResponse(BaseResponse):

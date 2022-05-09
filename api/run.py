@@ -1,8 +1,8 @@
 from config.settings import Settings
 from flask import Flask, request, jsonify
 
-from main.factories.controllers.get_mms_controller_factory import make_mms_controller
-from presentation.protocols.request import Request
+from api.main.factories.controllers.get_mms_controller_factory import make_mms_controller
+from api.presentation.protocols.request import Request
 
 app = Flask(__name__)
 

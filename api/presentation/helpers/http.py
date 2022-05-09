@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Union
 
-from presentation.protocols.response import Response
+from api.presentation.protocols.response import Response
 
 
 class OK(Response):
