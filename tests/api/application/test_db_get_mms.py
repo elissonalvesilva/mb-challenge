@@ -21,6 +21,22 @@ def make_sut(mocker):
     return sut
 
 
+
+def test_get_mms(make_request_parameters, mocker):
+    sut = make_sut(mocker)
+
+    mock_response = [{ 'timestamp': 1651821011, 'mms': 123.45 }]
+    get_mms_by_parameters_mock = mocker.patch("api.application.protocols.get_mms_repository.GetMMSRepository.get_mms_by_parameters")
+    get_mms_by_parameters_mock.return_value = mock_response
+    _is_date_greather_than_365_days_mock = mocker.patch("api.application.use_cases.db_get_mms.DbGetMMS._is_date_greather_than_365_days")
+    _is_date_greather_than_365_days_mock.return_value = False
+
+    params = make_request_parameters
+    response = sut.get_mms(params['pair'], params['from_date'], params['to_date'], params['range'])
+    assert response[0]['timestamp'] == mock_response[0]['timestamp']
+    assert response[0]['mms'] == mock_response[0]['mms']
+
+
 def test_get_mms_by_parameters_called_once(make_request_parameters, mocker):
     sut = make_sut(mocker)
 
