@@ -20,8 +20,9 @@ class GetMMSController(BaseController):
         range = query_string.get('range', None)
 
         try:
-            from_date = self._to_timestamp(from_date)
-            from_date = datetime.fromtimestamp(from_date)
+            if from_date:
+                from_date = self._to_timestamp(from_date)
+                from_date = datetime.fromtimestamp(from_date)
 
             if to_date:
                 to_date = datetime.fromtimestamp(self._to_timestamp(to_date))
