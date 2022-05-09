@@ -53,11 +53,16 @@ parametro | valor | descrição
 ### 2 - retry.py
 > Responsavel por ler o arquivo de retries e executar novamente o script de ingestao
 
+Execução:
+> make retry
+
 **Obs: ele somente é executado de forma manual. Mas se quiser deixar de forma automatica podemos deixar ele rodando em um cron de 12 em 12 hrs**
 
 #### check_unprocessed_days.py
 > Responsavel por checar se possuem dias que nao forma processado os MMS no banco de dados. Caso exista ele escreve em um arquivo os dias nao processados.
 
+Execução:
+> make check-unprocessed-days
 
 ### Ideias dos scripts
 Os scripts em si foram criados para salvar os dados em arquivo como forma de facilitar mais o projeto e a compreensão. Mas caso houvesse a possibilidade de scala poderiam ser facilmente enviados para uma fila onde conteriam microseriços de avisos (no caso tivesses dados com datas nao processadas no banco ou também avisando que falhou uma ingestao de data no dia)
