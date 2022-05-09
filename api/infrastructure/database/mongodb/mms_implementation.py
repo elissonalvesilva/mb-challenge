@@ -19,7 +19,7 @@ class MMSImplementation(GetMMSRepository):
             '$project': {
                 '_id': False,
                 'mms': f'$SMA_{range}',
-                'timestamp': { '$dateToString': { 'date': '$date', 'format': '%Y-%m-%d' } },
+                'timestamp': { '$toLong': '$date' },
             }
         }
         response = client.mb.sma.aggregate([query, project])

@@ -23,7 +23,7 @@ class DbGetMMS(GetMMS):
             else:
                 return None
         except Exception as e:
-            raise DatabaseException(e)
+            raise DatabaseException(str(e))
 
     def _is_date_greather_than_365_days(self, date_to_compare):
         current_date_timestamp = datetime.now()
