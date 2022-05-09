@@ -13,6 +13,7 @@ Basta rodar os comandos abaixo:
 > make build
 
 > make up
+
 **Obs: esse comando serve para subir a aplicação da api e da api fake que o script consome os dados. Tive que criar uma api fake devido nao consegui fazer requests locais para api do candles**
 
 ## Logs:
